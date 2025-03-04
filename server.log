@@ -1,0 +1,60 @@
+INFO:__main__:beginning command parsing
+INFO:__main__:parsing command token: 'USER'
+INFO:__main__:parsing command: User dum
+INFO:__main__:command parsed successfully
+INFO:__main__:command is valid to execute
+INFO:__main__:command executed successfully
+INFO:__main__:parsing command token: 'PASS'
+INFO:__main__:parsing command: pass stupid
+INFO:__main__:command parsed successfully
+INFO:__main__:command is valid to execute
+INFO:__main__:command executed successfully
+INFO:__main__:parsing command token: 'PORT'
+INFO:__main__:parsing command: port 1,1,1,1,1,1
+INFO:__main__:command parsed successfully
+INFO:__main__:command is valid to execute
+INFO:__main__:command executed successfully
+INFO:__main__:parsing command token: 'RETR'
+INFO:__main__:parsing command: retr file_dne
+INFO:__main__:command parsed successfully
+INFO:__main__:command is valid to execute
+ERROR:__main__:FTP Error: 550 File not found or access denied.
+
+INFO:__main__:parsing command token: 'RETR'
+INFO:__main__:parsing command: retr file_dne
+INFO:__main__:command parsed successfully
+INFO:__main__:command is valid to execute
+ERROR:__main__:FTP Error: 550 File not found or access denied.
+
+INFO:__main__:parsing command token: 'RETR'
+INFO:__main__:parsing command: retr pictures/jasleen.jpg
+INFO:__main__:command parsed successfully
+INFO:__main__:command is valid to execute
+INFO:__main__:command executed successfully
+INFO:__main__:parsing command token: 'PORT'
+INFO:__main__:parsing command: port 2,2,2,2,2,2
+INFO:__main__:command parsed successfully
+INFO:__main__:command is valid to execute
+INFO:__main__:command executed successfully
+INFO:__main__:parsing command token: 'RETR'
+INFO:__main__:parsing command: retr seventeen
+INFO:__main__:command parsed successfully
+INFO:__main__:command is valid to execute
+ERROR:__main__:FTP Error: 550 File not found or access denied.
+
+INFO:__main__:parsing command token: 'PORT'
+INFO:__main__:parsing command: port 3,3,3,3,3,3
+INFO:__main__:command parsed successfully
+INFO:__main__:command is valid to execute
+INFO:__main__:command executed successfully
+INFO:__main__:parsing command token: 'RETR'
+INFO:__main__:parsing command: retr fourhundred
+INFO:__main__:command parsed successfully
+INFO:__main__:command is valid to execute
+ERROR:__main__:FTP Error: 550 File not found or access denied.
+
+INFO:__main__:parsing command token: 'RETR'
+INFO:__main__:parsing command: retr pictures/jasleen.jpg
+INFO:__main__:command parsed successfully
+INFO:__main__:command is valid to execute
+INFO:__main__:command executed successfully
