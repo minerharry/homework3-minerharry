@@ -4,13 +4,15 @@
 #           Starter Code          #
 ###################################
 
+import itertools
+import logging
 from pathlib import Path
 import sys
 import os
 import socket as sock
 from socket import *
 import time
-from typing import Iterable
+from typing import Iterable, Iterator
 
 # Define dictionary of useful ASCII codes
 # Use ord(char) to get decimal ascii code for char
@@ -41,42 +43,89 @@ def read_commands():
 
     for command in sys.stdin:
         # Echo command exactly as it was input
-        sys.stdout.write(command)
+        writeOutput(command,raw=False)
         tokens = command.split()
         if len(tokens) > 0 and tokens[0] in expected_commands:
             match tokens[0]:
                 case 'CONNECT':
                     reply,port,host = parse_connect(command)
-                    sys.stdout.write(reply + "\n")
+                    writeOutput(reply + "\n",raw=False)
 
                     if reply.startswith("ERROR"):
-                        raise Exception()
+                        continue
+
+                    if ftp_control_connection is not None:
+                        ftp_control_connection.close()
 
                     #make connection with server
                     ftp_control_connection = socket(sock.AF_INET,sock.SOCK_STREAM)
                     ftp_control_connection.connect((host,port))
 
+                    writeOutput(send_commands(ftp_control_connection,[None])) #get server response! kind of a hack oh well
+
                     process_connect(ftp_control_connection);
-
-
-
-                case 'GET':
                     
+                    expected_commands = ["CONNECT","GET","QUIT"]
+                case 'GET':
+                    assert ftp_control_connection is not None
+                    reply,pathname = parse_get(command)
+                    writeOutput(reply + "\n",raw=False)
 
+                    if reply.startswith("ERROR"):
+                        continue
+                    
+                    num_copied_files += 1;
+                    process_get(ftp_control_connection,welcoming_port,pathname,num_copied_files);
+                    welcoming_port += 1
+                case 'QUIT':
+                    assert ftp_control_connection is not None
+                    reply = parse_quit(command);
+                    writeOutput(reply + "\n",raw=False)
+                    
+                    if reply.startswith("ERROR"):
+                        continue
 
+                    process_quit(ftp_control_connection);
 
+                    ftp_control_connection.close()
+
+                    sys.exit(0)
         else:
-            print("ERROR -- Command Unexpected/Unknown")
+            writeOutput("ERROR -- Command Unexpected/Unknown\n",raw=False)
+
+
+def writeOutput(output:str|Iterator[str],raw=True,encoding:str="utf-8"):
+    if not isinstance(output,Iterator):
+        output = iter([output])
+
+    for text in output:
+        if raw:
+            logging.info(f"writing raw text ({len(text)} characters):\n" + text)
+            sys.stdout.buffer.write(text.encode(encoding=encoding))
+        else:
+            logging.info(f"writing non-raw text ({len(text)} characters):\n" + text)
+            sys.stdout.write(text)
+        sys.stdout.flush()
+
+
 
 
 class FTPError(Exception):
     pass
 
-def send_commands(fcc:socket,commands:Iterable[str]):
+def send_commands(fcc:socket,commands:Iterable[str|None]):
+    # commands = list(commands)
+    # logging.info("sending command batch: " + "|".join(commands))
     def isError(code:int):
         return 400 <= code <= 599
     for comm in commands:
-        fcc.send(comm.encode('utf-8'))
+
+        if comm is not None: #allow for a null command to pick up the initial response
+            fcc.send(comm.encode('utf-8'))
+            
+            yield comm
+        else:
+            comm = ""
 
         #so here's the fun part. How do I know when the server's stopped sending a reply?
         #well, we can assume the server is formatting everything, so the end of one line will always be \r\n
@@ -95,16 +144,22 @@ def send_commands(fcc:socket,commands:Iterable[str]):
         buff = "" #to hold text from server
         for it in [1,2]: #this loop will only ever run once or twice
             while True: #TODO: timeout?
-                buff += fcc.recv(1024).decode('utf-8')
+                logging.info("Awaiting reply, curent buffer:\n"+buff)
                 if ("\n" in buff):
                     break;
-
+                fcc.settimeout(5)
+                try:
+                    buff += fcc.recv(1024).decode('utf-8')
+                except TimeoutError:
+                    pass
+                
+            logging.info("newlines in buffer: " + str(buff.count("\n")))
             ind = buff.index("\n")+1
             
             reply,buff = buff[:ind],buff[ind:]
             reply,code = parse_reply(reply)
 
-            resp += reply + "\n"
+            resp += reply + os.linesep
 
             if isError(code):
                 error = code
@@ -136,7 +191,7 @@ def process_connect(ftp_control_connection:socket):
     commands = generate_connect_output()
 
     try:
-        [sys.stdout.write(response) for response in send_commands(ftp_control_connection,commands)];
+        writeOutput(send_commands(ftp_control_connection,commands));
     except FTPError:
         return
 
@@ -156,8 +211,10 @@ def process_get(ftp_control_connection:socket, welcoming_port, file_path, num_co
     
     commands = generate_get_output(welcoming_port,file_path)
 
+    comit = send_commands(ftp_control_connection,commands)
+
     try:
-        [sys.stdout.write(response) for response in send_commands(ftp_control_connection,commands)];
+        writeOutput(itertools.islice(comit,3));
     except FTPError:
         dataport.close()
         return
@@ -176,7 +233,8 @@ def process_get(ftp_control_connection:socket, welcoming_port, file_path, num_co
     
     conn.close()
     dataport.close()
-        
+
+    writeOutput(comit)        
 
 
 ##############################################################################################
@@ -187,7 +245,11 @@ def process_get(ftp_control_connection:socket, welcoming_port, file_path, num_co
 #                                                                                            #
 ##############################################################################################
 def process_quit(ftp_control_connection:socket):
-    sys.stdout.write(list(send_commands(ftp_control_connection,["quit\r\n"]))[0]);
+    commands = ["QUIT\r\n"]
+    try:
+        writeOutput(send_commands(ftp_control_connection,commands));
+    except FTPError:
+        return
 
 ##############################################################
 #       The following two methods are for generating         #
@@ -257,16 +319,16 @@ def parse_connect(command):
 # GET<SP>+<pathname><EOL>
 def parse_get(command):
     if command[0:3] != "GET":
-        return "ERROR -- request"
+        return "ERROR -- request",""
     command = command[3:]
     
     command = parse_space(command)
     command, pathname = parse_pathname(command)
 
     if "ERROR" in command:
-        return command
+        return command,""
     elif command != '\r\n' and command != '\n':
-        return "ERROR -- <CRLF>"
+        return "ERROR -- <CRLF>",""
     return f"GET accepted for {pathname}", pathname
 
 # QUIT<EOL>
@@ -378,6 +440,7 @@ def parse_space(line):
 #############################################
 # <reply-code><SP><reply-text><CRLF> 
 def parse_reply(reply):
+    logging.info("parsing FTP reply:\n" + reply)
     # <reply-code>
     reply, reply_code = parse_reply_code(reply)
     if "ERROR" in reply:
@@ -406,7 +469,7 @@ def parse_reply_code(reply):
     return reply, reply_code
 
 # <reply-number> ::= character representation of a decimal integer in the range 100-599
-def parse_reply_number(reply):
+def parse_reply_number(reply:str):
     reply_number = 0
     if len(reply) < 3:
         return "ERROR", reply_number
@@ -414,8 +477,8 @@ def parse_reply_number(reply):
         reply_number = int(reply[0:3])
     except ValueError:
         return "ERROR", reply_number
-    reply_number = reply[0:3]
-    if int(reply_number) < 100 or int(reply_number) > 599:
+    reply_number = int(reply[0:3])
+    if reply_number < 100 or reply_number > 599:
         return "ERROR", reply_number
     return reply[3:], reply_number
 
@@ -438,4 +501,6 @@ def parse_reply_text(reply):
         return reply, reply_text
 
 if __name__ == "__main__":
+
+    logging.basicConfig(filename='client.log', level=logging.INFO,filemode='w')
     read_commands()

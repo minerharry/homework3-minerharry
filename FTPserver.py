@@ -34,9 +34,6 @@ class ServerState:
 
 SERVER_STATE:ServerState
 
-
-logger = logging.getLogger(__name__)
-
 CR = "\r"
 LF = "\n"
 
@@ -124,11 +121,11 @@ class FTPReply(Enum):
         return self.reply(*args,**kwargs).encode(encoding=encoding)
 
 
-def parseCommand(command:str):
+def parseCommand(command:str,include_command=True):
     reply = ""
     nextline = command
     try:
-        reply += nextline + "\n"
+        if include_command: reply += nextline + "\n"
 
         #parse end-of-line
         if not nextline.endswith("\r"):
@@ -143,22 +140,22 @@ def parseCommand(command:str):
         else:
             comm_idx = comm_idx.start()
         comm = nextline[:comm_idx].upper()
-        logger.info("parsing command token: '" + comm + "'")
+        logging.info("parsing command token: '" + comm + "'")
         if comm not in parsers: #invalid command token
-            logger.error("No Command")
+            logging.error("No Command")
             raise FTPError.invalid_command
             
         #parse command
-        logger.info("parsing command: " + nextline)
+        logging.info("parsing command: " + nextline)
         nextline = nextline[comm_idx:]
         command_action = parsers[comm](nextline)
         if isinstance(command_action,str):
             command_action = FTPAction(command_action);
         
-        logger.info("command parsed successfully")
+        logging.info("command parsed successfully")
 
         #command valid, validate command order
-        logger.info(SERVER_STATE)
+        logging.info(SERVER_STATE)
         if not SERVER_STATE.USERNAME and comm != 'USER':
             #valid command preceding valid USER+PASS sequence
             raise FTPError.not_logged_in
@@ -169,7 +166,7 @@ def parseCommand(command:str):
         elif comm == 'RETR' and not SERVER_STATE.PORT_OPEN:
             raise FTPError.bad_order
         
-        logger.info("command is valid to execute")
+        logging.info("command is valid to execute")
         
         #if command is valid, execute it
         command_action.execute()
@@ -180,18 +177,18 @@ def parseCommand(command:str):
 
         #if execution is valid, record command
         if comm == 'USER':
-            logger.info("Username Recorded")
+            logging.info("Username Recorded")
             SERVER_STATE.USERNAME = True
             SERVER_STATE.PASSWORD = False
         if comm == 'PASS':
-            logger.info("Password Recorded")
+            logging.info("Password Recorded")
             SERVER_STATE.PASSWORD = True
 
         #finally, reply
         reply += command_action.reply
-        logger.info("command executed successfully")
+        logging.info("command executed successfully")
     except FTPError as f:
-        logger.error("FTP Error: " + f.reply())
+        logging.error("FTP Error: " + f.reply())
         reply += f.reply()
    
     return reply
@@ -201,7 +198,7 @@ def parseCommand(command:str):
 
 
 def parseCommands(commands:str):
-    logger.info("beginning command parsing")
+    logging.info("beginning command parsing")
     reply:str = FTPReply.server_ok()
     
     while True:
@@ -214,14 +211,14 @@ def parseCommands(commands:str):
                 reply += commands
                 commands = ""
                 SERVER_STATE.ACTIVE = False
-                logger.error("No CRLF")
+                logging.error("No CRLF")
                 raise FTPError.invalid_parameter
             idx = idx.start()
             nextline,commands = commands[:idx],commands[idx+1:]
             
             reply += parseCommand(nextline)
         except FTPError as f:
-            logger.error("FTP Error: " + f.reply())
+            logging.error("FTP Error: " + f.reply())
             reply += f.reply()
             continue
 
@@ -265,12 +262,12 @@ def parseNoop(command:str)->str:
     if command == "":
         return FTPReply.command_ok()
     else:
-        logger.error("No-parameter 'NOOP' command has parameter '" + command + "'")
+        logging.error("No-parameter 'NOOP' command has parameter '" + command + "'")
         raise FTPError.IP
 
 def parseQuit(command:str)->str:
     if command == "":
-        SERVER_STATE.reset_state()
+        SERVER_STATE.ACTIVE = False
         return FTPReply.goodbye()
         # return FTPReply.command_ok()
     else:
@@ -322,7 +319,8 @@ def perform_retr(command):
                 #TODO: socket error handling
                 datasock = socket.socket(socket.AF_INET,socket.SOCK_STREAM);
                 datasock.connect((SERVER_STATE.CLIENT_ADDR,SERVER_STATE.CLIENT_PORT))
-                datasock.sendfile(command);
+                with open(command,"rb") as f:
+                    datasock.sendfile(f);
                 datasock.close()
                 return
             except OSError:
@@ -365,7 +363,6 @@ class TCPServerState(ServerState):
 
     def reset_state(self):
         super().reset_state()
-        self.ACTIVE = True
         self.CLIENT_ADDR = None
         self.CLIENT_PORT = None
 
@@ -382,17 +379,30 @@ class TCPServerState(ServerState):
             self.SERVERSOCK.listen(1)  # Allow only one connection at a time 
 
 
-
+class PortClosed(Exception):
+    pass
 
 def start_FTP_server():
     assert isinstance(SERVER_STATE,TCPServerState)
-    logger.info("Opening FTP server")
+    logging.info("Opening FTP server")
     sock = SERVER_STATE.SERVERSOCK
     assert sock is not None
     while True:
-        conn,(hostaddr,hostport) = sock.accept()
+        logging.info("awaiting connection")
+        res = None
+        while True: #for keyboardinterrupt reasons
+            sock.settimeout(2)
+            try:
+                res = sock.accept()
+                break
+            except TimeoutError:
+                continue
+        conn,(hostaddr,hostport) = res
+        print("server connected")
+        logging.info("client connected from address " + str((hostaddr,hostport)))
 
         SERVER_STATE.CONN = conn
+        SERVER_STATE.ACTIVE = True
 
         conn.send(FTPReply.server_ok.bytes())
 
@@ -400,12 +410,21 @@ def start_FTP_server():
 
         while True:
             if not SERVER_STATE.ACTIVE:
+                SERVER_STATE.reset_state()
                 break
             try:
+                logging.info("awaiting next command")
                 while True:
                     #update command buffer
-                    data = conn.recv(1024).decode('utf-8')
-                    commands += data
+                    conn.settimeout(5)
+                    try:
+                        data = conn.recv(1024,).decode('utf-8')
+                        if len(data) == 0: #port closed! close server
+                            logging.info("Port closed! Resetting server...")
+                            raise PortClosed()
+                        commands += data
+                    except TimeoutError:
+                        continue
 
                     #find line
                     idx = re.search("\n",commands)
@@ -416,12 +435,20 @@ def start_FTP_server():
                     idx = idx.start()
                     nextline,commands = commands[:idx],commands[idx+1:]
                     break;
-                
-                conn.send(parseCommand(nextline).encode('utf-8'))
+
+                logging.info("command received")
+                reply = parseCommand(nextline,include_command=False);
+                conn.send(reply.encode('utf-8'))
+                logging.info(f"Reply sent ({len(reply)} character(s)):\n" + reply)
             except FTPError as f:
-                logger.error("FTP Error: " + f.reply())
+                logging.error("FTP Error: " + f.reply())
                 conn.send(f.reply().encode('utf-8'))
                 continue
+            except PortClosed:
+                SERVER_STATE.reset_state()
+        
+        print("server disconnected")
+        logging.info("client disconnected")
 
 
     return reply
@@ -437,6 +464,8 @@ def start_FTP_server():
 if __name__ == "__main__":
     server_type:Literal['local','networked'] = "networked"
 
+    logging.basicConfig(filename='server.log', level=logging.INFO,filemode='w')
+
     if server_type == "local":
 
         SERVER_STATE = ServerState()
@@ -444,12 +473,21 @@ if __name__ == "__main__":
         import sys
         text = sys.stdin.buffer.read().decode('UTF-8');
 
-        logging.basicConfig(filename='server.log', level=logging.INFO,filemode='w')
+        
 
         sys.stdout.buffer.write(parseCommands(text).encode('UTF-8'))
     
     elif server_type == "networked":
         import sys
-        port = int(sys.argv[0])
+        port = int(sys.argv[1])
 
         SERVER_STATE = TCPServerState(SERVER_PORT=port)
+
+        while True:
+            try:
+                start_FTP_server()
+            except (ConnectionResetError,ConnectionAbortedError):
+                print("Connection broken! Restarting server...")
+                SERVER_STATE.reset_state()
+                continue
+        

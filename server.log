@@ -1,60 +1,583 @@
-INFO:__main__:beginning command parsing
-INFO:__main__:parsing command token: 'USER'
-INFO:__main__:parsing command: User dum
-INFO:__main__:command parsed successfully
-INFO:__main__:command is valid to execute
-INFO:__main__:command executed successfully
-INFO:__main__:parsing command token: 'PASS'
-INFO:__main__:parsing command: pass stupid
-INFO:__main__:command parsed successfully
-INFO:__main__:command is valid to execute
-INFO:__main__:command executed successfully
-INFO:__main__:parsing command token: 'PORT'
-INFO:__main__:parsing command: port 1,1,1,1,1,1
-INFO:__main__:command parsed successfully
-INFO:__main__:command is valid to execute
-INFO:__main__:command executed successfully
-INFO:__main__:parsing command token: 'RETR'
-INFO:__main__:parsing command: retr file_dne
-INFO:__main__:command parsed successfully
-INFO:__main__:command is valid to execute
-ERROR:__main__:FTP Error: 550 File not found or access denied.
+INFO:root:Opening FTP server
+INFO:root:awaiting connection
+INFO:root:client connected from address ('127.0.0.1', 63509)
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'USER'
+INFO:root:parsing command: USER anonymous
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=False, PASSWORD=False, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=324, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63509)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:Username Recorded
+INFO:root:command executed successfully
+INFO:root:Reply sent (37 character(s)):
+331 Guest access OK, send password.
 
-INFO:__main__:parsing command token: 'RETR'
-INFO:__main__:parsing command: retr file_dne
-INFO:__main__:command parsed successfully
-INFO:__main__:command is valid to execute
-ERROR:__main__:FTP Error: 550 File not found or access denied.
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'PASS'
+INFO:root:parsing command: PASS guest@
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=False, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=324, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63509)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:Password Recorded
+INFO:root:command executed successfully
+INFO:root:Reply sent (21 character(s)):
+230 Guest login OK.
 
-INFO:__main__:parsing command token: 'RETR'
-INFO:__main__:parsing command: retr pictures/jasleen.jpg
-INFO:__main__:command parsed successfully
-INFO:__main__:command is valid to execute
-INFO:__main__:command executed successfully
-INFO:__main__:parsing command token: 'PORT'
-INFO:__main__:parsing command: port 2,2,2,2,2,2
-INFO:__main__:command parsed successfully
-INFO:__main__:command is valid to execute
-INFO:__main__:command executed successfully
-INFO:__main__:parsing command token: 'RETR'
-INFO:__main__:parsing command: retr seventeen
-INFO:__main__:command parsed successfully
-INFO:__main__:command is valid to execute
-ERROR:__main__:FTP Error: 550 File not found or access denied.
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'SYST'
+INFO:root:parsing command: SYST
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=324, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63509)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (20 character(s)):
+215 UNIX Type: L8.
 
-INFO:__main__:parsing command token: 'PORT'
-INFO:__main__:parsing command: port 3,3,3,3,3,3
-INFO:__main__:command parsed successfully
-INFO:__main__:command is valid to execute
-INFO:__main__:command executed successfully
-INFO:__main__:parsing command token: 'RETR'
-INFO:__main__:parsing command: retr fourhundred
-INFO:__main__:command parsed successfully
-INFO:__main__:command is valid to execute
-ERROR:__main__:FTP Error: 550 File not found or access denied.
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'TYPE'
+INFO:root:parsing command: TYPE I
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=324, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63509)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (20 character(s)):
+200 Type set to I.
 
-INFO:__main__:parsing command token: 'RETR'
-INFO:__main__:parsing command: retr pictures/jasleen.jpg
-INFO:__main__:command parsed successfully
-INFO:__main__:command is valid to execute
-INFO:__main__:command executed successfully
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'PORT'
+INFO:root:parsing command: PORT 152,23,59,151,35,41
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=324, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63509)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (51 character(s)):
+200 Port command successful (152.23.59.151,9001).
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'RETR'
+INFO:root:parsing command: RETR pictures/jasleen.jpg
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=True, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=324, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63509)>, CLIENT_ADDR='152.23.59.151', CLIENT_PORT=9001)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (61 character(s)):
+150 File status okay.
+250 Requested file action completed.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'QUIT'
+INFO:root:parsing command: QUIT
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=False, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=324, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63509)>, CLIENT_ADDR='152.23.59.151', CLIENT_PORT=9001)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (14 character(s)):
+221 Goodbye.
+
+INFO:root:client disconnected
+INFO:root:awaiting connection
+INFO:root:client connected from address ('127.0.0.1', 63530)
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'USER'
+INFO:root:parsing command: USER anonymous
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=False, PASSWORD=False, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=324, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63530)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:Username Recorded
+INFO:root:command executed successfully
+INFO:root:Reply sent (37 character(s)):
+331 Guest access OK, send password.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'PASS'
+INFO:root:parsing command: PASS guest@
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=False, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=324, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63530)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:Password Recorded
+INFO:root:command executed successfully
+INFO:root:Reply sent (21 character(s)):
+230 Guest login OK.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'SYST'
+INFO:root:parsing command: SYST
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=324, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63530)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (20 character(s)):
+215 UNIX Type: L8.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'TYPE'
+INFO:root:parsing command: TYPE I
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=324, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63530)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (20 character(s)):
+200 Type set to I.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'PORT'
+INFO:root:parsing command: PORT 152,23,59,151,35,41
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=324, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63530)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (51 character(s)):
+200 Port command successful (152.23.59.151,9001).
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'RETR'
+INFO:root:parsing command: RETR pictures/jasleen.jpg
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=True, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=324, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63530)>, CLIENT_ADDR='152.23.59.151', CLIENT_PORT=9001)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (61 character(s)):
+150 File status okay.
+250 Requested file action completed.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'QUIT'
+INFO:root:parsing command: QUIT
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=False, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=324, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63530)>, CLIENT_ADDR='152.23.59.151', CLIENT_PORT=9001)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (14 character(s)):
+221 Goodbye.
+
+INFO:root:client disconnected
+INFO:root:awaiting connection
+INFO:root:client connected from address ('127.0.0.1', 63553)
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'USER'
+INFO:root:parsing command: USER anonymous
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=False, PASSWORD=False, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63553)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:Username Recorded
+INFO:root:command executed successfully
+INFO:root:Reply sent (37 character(s)):
+331 Guest access OK, send password.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'PASS'
+INFO:root:parsing command: PASS guest@
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=False, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63553)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:Password Recorded
+INFO:root:command executed successfully
+INFO:root:Reply sent (21 character(s)):
+230 Guest login OK.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'SYST'
+INFO:root:parsing command: SYST
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63553)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (20 character(s)):
+215 UNIX Type: L8.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'TYPE'
+INFO:root:parsing command: TYPE I
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63553)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (20 character(s)):
+200 Type set to I.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'PORT'
+INFO:root:parsing command: PORT 152,23,59,151,35,41
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63553)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (51 character(s)):
+200 Port command successful (152.23.59.151,9001).
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'RETR'
+INFO:root:parsing command: RETR pictures/jasleen.jpg
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=True, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63553)>, CLIENT_ADDR='152.23.59.151', CLIENT_PORT=9001)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (61 character(s)):
+150 File status okay.
+250 Requested file action completed.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'QUIT'
+INFO:root:parsing command: QUIT
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=False, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63553)>, CLIENT_ADDR='152.23.59.151', CLIENT_PORT=9001)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (14 character(s)):
+221 Goodbye.
+
+INFO:root:client disconnected
+INFO:root:awaiting connection
+INFO:root:client connected from address ('127.0.0.1', 63564)
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'USER'
+INFO:root:parsing command: USER anonymous
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=False, PASSWORD=False, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63564)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:Username Recorded
+INFO:root:command executed successfully
+INFO:root:Reply sent (37 character(s)):
+331 Guest access OK, send password.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'PASS'
+INFO:root:parsing command: PASS guest@
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=False, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63564)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:Password Recorded
+INFO:root:command executed successfully
+INFO:root:Reply sent (21 character(s)):
+230 Guest login OK.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'SYST'
+INFO:root:parsing command: SYST
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63564)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (20 character(s)):
+215 UNIX Type: L8.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'TYPE'
+INFO:root:parsing command: TYPE I
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63564)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (20 character(s)):
+200 Type set to I.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'PORT'
+INFO:root:parsing command: PORT 152,23,59,151,35,41
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63564)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (51 character(s)):
+200 Port command successful (152.23.59.151,9001).
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'RETR'
+INFO:root:parsing command: RETR pictures/jasleen.jpg
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=True, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63564)>, CLIENT_ADDR='152.23.59.151', CLIENT_PORT=9001)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (61 character(s)):
+150 File status okay.
+250 Requested file action completed.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'QUIT'
+INFO:root:parsing command: QUIT
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=False, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63564)>, CLIENT_ADDR='152.23.59.151', CLIENT_PORT=9001)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (14 character(s)):
+221 Goodbye.
+
+INFO:root:client disconnected
+INFO:root:awaiting connection
+INFO:root:client connected from address ('127.0.0.1', 63579)
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'USER'
+INFO:root:parsing command: USER anonymous
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=False, PASSWORD=False, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63579)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:Username Recorded
+INFO:root:command executed successfully
+INFO:root:Reply sent (37 character(s)):
+331 Guest access OK, send password.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'PASS'
+INFO:root:parsing command: PASS guest@
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=False, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63579)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:Password Recorded
+INFO:root:command executed successfully
+INFO:root:Reply sent (21 character(s)):
+230 Guest login OK.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'SYST'
+INFO:root:parsing command: SYST
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63579)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (20 character(s)):
+215 UNIX Type: L8.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'TYPE'
+INFO:root:parsing command: TYPE I
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63579)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (20 character(s)):
+200 Type set to I.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'PORT'
+INFO:root:parsing command: PORT 152,23,59,151,35,41
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63579)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (51 character(s)):
+200 Port command successful (152.23.59.151,9001).
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'RETR'
+INFO:root:parsing command: RETR pictures/jasleen.jpg
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=True, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63579)>, CLIENT_ADDR='152.23.59.151', CLIENT_PORT=9001)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (61 character(s)):
+150 File status okay.
+250 Requested file action completed.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'QUIT'
+INFO:root:parsing command: QUIT
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=False, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=464, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63579)>, CLIENT_ADDR='152.23.59.151', CLIENT_PORT=9001)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (14 character(s)):
+221 Goodbye.
+
+INFO:root:client disconnected
+INFO:root:awaiting connection
+INFO:root:client connected from address ('127.0.0.1', 63651)
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'USER'
+INFO:root:parsing command: USER anonymous
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=False, PASSWORD=False, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=380, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63651)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:Username Recorded
+INFO:root:command executed successfully
+INFO:root:Reply sent (37 character(s)):
+331 Guest access OK, send password.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'PASS'
+INFO:root:parsing command: PASS guest@
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=False, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=380, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63651)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:Password Recorded
+INFO:root:command executed successfully
+INFO:root:Reply sent (21 character(s)):
+230 Guest login OK.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'SYST'
+INFO:root:parsing command: SYST
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=380, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63651)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (20 character(s)):
+215 UNIX Type: L8.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'TYPE'
+INFO:root:parsing command: TYPE I
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=380, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63651)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (20 character(s)):
+200 Type set to I.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'PORT'
+INFO:root:parsing command: PORT 152,23,59,151,35,41
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=380, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63651)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (51 character(s)):
+200 Port command successful (152.23.59.151,9001).
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'RETR'
+INFO:root:parsing command: RETR pictures/jasleen.jpg
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=True, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=380, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63651)>, CLIENT_ADDR='152.23.59.151', CLIENT_PORT=9001)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (61 character(s)):
+150 File status okay.
+250 Requested file action completed.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'QUIT'
+INFO:root:parsing command: QUIT
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=False, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=380, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63651)>, CLIENT_ADDR='152.23.59.151', CLIENT_PORT=9001)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (14 character(s)):
+221 Goodbye.
+
+INFO:root:client disconnected
+INFO:root:awaiting connection
+INFO:root:client connected from address ('127.0.0.1', 63668)
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'USER'
+INFO:root:parsing command: USER anonymous
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=False, PASSWORD=False, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=504, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63668)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:Username Recorded
+INFO:root:command executed successfully
+INFO:root:Reply sent (37 character(s)):
+331 Guest access OK, send password.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'PASS'
+INFO:root:parsing command: PASS guest@
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=False, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=504, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63668)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:Password Recorded
+INFO:root:command executed successfully
+INFO:root:Reply sent (21 character(s)):
+230 Guest login OK.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'SYST'
+INFO:root:parsing command: SYST
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=504, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63668)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (20 character(s)):
+215 UNIX Type: L8.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'TYPE'
+INFO:root:parsing command: TYPE I
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=504, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63668)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (20 character(s)):
+200 Type set to I.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'PORT'
+INFO:root:parsing command: PORT 152,23,59,151,35,41
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=504, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63668)>, CLIENT_ADDR=None, CLIENT_PORT=None)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (51 character(s)):
+200 Port command successful (152.23.59.151,9001).
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'RETR'
+INFO:root:parsing command: RETR pictures/jasleen.jpg
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=True, USERNAME=True, PASSWORD=True, PORT_OPEN=True, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=504, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63668)>, CLIENT_ADDR='152.23.59.151', CLIENT_PORT=9001)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (61 character(s)):
+150 File status okay.
+250 Requested file action completed.
+
+INFO:root:awaiting next command
+INFO:root:command received
+INFO:root:parsing command token: 'QUIT'
+INFO:root:parsing command: QUIT
+INFO:root:command parsed successfully
+INFO:root:TCPServerState(NUM_RETRD=0, ACTIVE=False, USERNAME=True, PASSWORD=True, PORT_OPEN=False, SERVER_PORT=9000, SERVERSOCK=<socket.socket fd=432, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('0.0.0.0', 9000)>, CONN=<socket.socket fd=504, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=0, laddr=('127.0.0.1', 9000), raddr=('127.0.0.1', 63668)>, CLIENT_ADDR='152.23.59.151', CLIENT_PORT=9001)
+INFO:root:command is valid to execute
+INFO:root:command executed successfully
+INFO:root:Reply sent (14 character(s)):
+221 Goodbye.
+
+INFO:root:client disconnected
+INFO:root:awaiting connection

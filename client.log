@@ -1,0 +1,144 @@
+INFO:root:writing non-raw text (23 characters):
+CONNECT localhost 9000
+
+INFO:root:writing non-raw text (64 characters):
+CONNECT accepted for FTP server at host localhost and port 9000
+
+INFO:root:Awaiting reply, curent buffer:
+
+INFO:root:Awaiting reply, curent buffer:
+220 COMP 431 FTP server ready.
+
+INFO:root:newlines in buffer: 1
+INFO:root:parsing FTP reply:
+220 COMP 431 FTP server ready.
+
+INFO:root:writing raw text (61 characters):
+FTP reply 220 accepted. Text is: COMP 431 FTP server ready.
+
+INFO:root:writing raw text (16 characters):
+USER anonymous
+
+INFO:root:Awaiting reply, curent buffer:
+
+INFO:root:Awaiting reply, curent buffer:
+331 Guest access OK, send password.
+
+INFO:root:newlines in buffer: 1
+INFO:root:parsing FTP reply:
+331 Guest access OK, send password.
+
+INFO:root:writing raw text (66 characters):
+FTP reply 331 accepted. Text is: Guest access OK, send password.
+
+INFO:root:writing raw text (13 characters):
+PASS guest@
+
+INFO:root:Awaiting reply, curent buffer:
+
+INFO:root:Awaiting reply, curent buffer:
+230 Guest login OK.
+
+INFO:root:newlines in buffer: 1
+INFO:root:parsing FTP reply:
+230 Guest login OK.
+
+INFO:root:writing raw text (50 characters):
+FTP reply 230 accepted. Text is: Guest login OK.
+
+INFO:root:writing raw text (6 characters):
+SYST
+
+INFO:root:Awaiting reply, curent buffer:
+
+INFO:root:Awaiting reply, curent buffer:
+215 UNIX Type: L8.
+
+INFO:root:newlines in buffer: 1
+INFO:root:parsing FTP reply:
+215 UNIX Type: L8.
+
+INFO:root:writing raw text (49 characters):
+FTP reply 215 accepted. Text is: UNIX Type: L8.
+
+INFO:root:writing raw text (8 characters):
+TYPE I
+
+INFO:root:Awaiting reply, curent buffer:
+
+INFO:root:Awaiting reply, curent buffer:
+200 Type set to I.
+
+INFO:root:newlines in buffer: 1
+INFO:root:parsing FTP reply:
+200 Type set to I.
+
+INFO:root:writing raw text (49 characters):
+FTP reply 200 accepted. Text is: Type set to I.
+
+INFO:root:writing non-raw text (25 characters):
+GET pictures/jasleen.jpg
+
+INFO:root:writing non-raw text (38 characters):
+GET accepted for pictures/jasleen.jpg
+
+INFO:root:writing raw text (26 characters):
+PORT 152,23,59,151,35,41
+
+INFO:root:Awaiting reply, curent buffer:
+
+INFO:root:Awaiting reply, curent buffer:
+200 Port command successful (152.23.59.151,9001).
+
+INFO:root:newlines in buffer: 1
+INFO:root:parsing FTP reply:
+200 Port command successful (152.23.59.151,9001).
+
+INFO:root:writing raw text (80 characters):
+FTP reply 200 accepted. Text is: Port command successful (152.23.59.151,9001).
+
+INFO:root:writing raw text (27 characters):
+RETR pictures/jasleen.jpg
+
+INFO:root:Awaiting reply, curent buffer:
+
+INFO:root:Awaiting reply, curent buffer:
+150 File status okay.
+250 Requested file action completed.
+
+INFO:root:newlines in buffer: 2
+INFO:root:parsing FTP reply:
+150 File status okay.
+
+INFO:root:Awaiting reply, curent buffer:
+250 Requested file action completed.
+
+INFO:root:newlines in buffer: 1
+INFO:root:parsing FTP reply:
+250 Requested file action completed.
+
+INFO:root:writing raw text (119 characters):
+FTP reply 150 accepted. Text is: File status okay.
+FTP reply 250 accepted. Text is: Requested file action completed.
+
+INFO:root:writing non-raw text (5 characters):
+QUIT
+
+INFO:root:writing non-raw text (38 characters):
+QUIT accepted, terminating FTP client
+
+INFO:root:writing raw text (6 characters):
+QUIT
+
+INFO:root:Awaiting reply, curent buffer:
+
+INFO:root:Awaiting reply, curent buffer:
+221 Goodbye.
+
+INFO:root:newlines in buffer: 1
+INFO:root:parsing FTP reply:
+221 Goodbye.
+
+INFO:root:writing raw text (43 characters):
+FTP reply 221 accepted. Text is: Goodbye.
+
