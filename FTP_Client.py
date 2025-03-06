@@ -7,6 +7,7 @@
 import itertools
 import logging
 from pathlib import Path
+from select import select
 import sys
 import os
 import socket as sock
@@ -37,7 +38,7 @@ def read_commands():
     # Initial port number for a “welcoming” socket 
     welcoming_port = int(sys.argv[1])                     # sys.argv[0] is the filename
     ftp_control_connection = None
-    num_copied_files = 0
+    num_copied_files = 1
 
 
 
@@ -46,50 +47,59 @@ def read_commands():
         writeOutput(command,raw=False)
         tokens = command.split()
         if len(tokens) > 0 and tokens[0] in expected_commands:
-            match tokens[0]:
-                case 'CONNECT':
-                    reply,port,host = parse_connect(command)
-                    writeOutput(reply + "\n",raw=False)
+            try:
+                match tokens[0]:
+                    case 'CONNECT':
+                        reply,port,host = parse_connect(command)
+                        writeOutput(reply + "\n",raw=False)
 
-                    if reply.startswith("ERROR"):
-                        continue
+                        if reply.startswith("ERROR"):
+                            continue
 
-                    if ftp_control_connection is not None:
+                        if ftp_control_connection is not None:
+                            ftp_control_connection.close()
+
+                        try:
+                            #make connection with server
+                            ftp_control_connection = socket(sock.AF_INET,sock.SOCK_STREAM)
+                            ftp_control_connection.connect((host,port))
+                        except (ConnectionRefusedError,ConnectionAbortedError):
+                            writeOutput("CONNECT failed\n",raw=False);
+                            continue
+                        
+                        writeOutput(send_commands(ftp_control_connection,[None])) #get server response! kind of a hack oh well
+
+                        process_connect(ftp_control_connection);
+                        
+                        expected_commands = ["CONNECT","GET","QUIT"]
+                    case 'GET':
+                        assert ftp_control_connection is not None
+                        reply,pathname = parse_get(command)
+                        writeOutput(reply + "\n",raw=False)
+
+                        if reply.startswith("ERROR"):
+                            continue
+                        try:
+                            num_copied_files += process_get(ftp_control_connection,welcoming_port,pathname,num_copied_files);
+                        finally:#it feels like this is the right thing to do
+                            welcoming_port += 1 
+                    case 'QUIT':
+                        assert ftp_control_connection is not None
+                        reply = parse_quit(command);
+                        writeOutput(reply + "\n",raw=False)
+                        
+                        if reply.startswith("ERROR"):
+                            continue
+                        
+                        process_quit(ftp_control_connection);
+
                         ftp_control_connection.close()
 
-                    #make connection with server
-                    ftp_control_connection = socket(sock.AF_INET,sock.SOCK_STREAM)
-                    ftp_control_connection.connect((host,port))
+                        sys.exit(0)
+            except FTPReplyError as e:
+                writeOutput(e.reply + "\n",raw=False)
+                continue
 
-                    writeOutput(send_commands(ftp_control_connection,[None])) #get server response! kind of a hack oh well
-
-                    process_connect(ftp_control_connection);
-                    
-                    expected_commands = ["CONNECT","GET","QUIT"]
-                case 'GET':
-                    assert ftp_control_connection is not None
-                    reply,pathname = parse_get(command)
-                    writeOutput(reply + "\n",raw=False)
-
-                    if reply.startswith("ERROR"):
-                        continue
-                    
-                    num_copied_files += 1;
-                    process_get(ftp_control_connection,welcoming_port,pathname,num_copied_files);
-                    welcoming_port += 1
-                case 'QUIT':
-                    assert ftp_control_connection is not None
-                    reply = parse_quit(command);
-                    writeOutput(reply + "\n",raw=False)
-                    
-                    if reply.startswith("ERROR"):
-                        continue
-
-                    process_quit(ftp_control_connection);
-
-                    ftp_control_connection.close()
-
-                    sys.exit(0)
         else:
             writeOutput("ERROR -- Command Unexpected/Unknown\n",raw=False)
 
@@ -100,16 +110,19 @@ def writeOutput(output:str|Iterator[str],raw=True,encoding:str="utf-8"):
 
     for text in output:
         if raw:
-            logging.info(f"writing raw text ({len(text)} characters):\n" + text)
+            # logging.info(f"writing raw text ({len(text)} characters):\n" + text)
             sys.stdout.buffer.write(text.encode(encoding=encoding))
         else:
-            logging.info(f"writing non-raw text ({len(text)} characters):\n" + text)
+            # logging.info(f"writing non-raw text ({len(text)} characters):\n" + text)
             sys.stdout.write(text)
         sys.stdout.flush()
 
 
 
-
+class FTPReplyError(Exception):
+    def __init__(self,reply:str,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+        self.reply = reply
 class FTPError(Exception):
     pass
 
@@ -143,7 +156,7 @@ def send_commands(fcc:socket,commands:Iterable[str|None]):
         resp = "" #to be returned
         buff = "" #to hold text from server
         for it in [1,2]: #this loop will only ever run once or twice
-            while True: #TODO: timeout?
+            while True: 
                 logging.info("Awaiting reply, curent buffer:\n"+buff)
                 if ("\n" in buff):
                     break;
@@ -158,6 +171,8 @@ def send_commands(fcc:socket,commands:Iterable[str|None]):
             
             reply,buff = buff[:ind],buff[ind:]
             reply,code = parse_reply(reply)
+            if "ERROR" in reply:
+                raise FTPReplyError(reply)
 
             resp += reply + os.linesep
 
@@ -202,12 +217,16 @@ def process_connect(ftp_control_connection:socket):
 #     then send the PORT/RETR commands to the server and process the received data.          #
 #                                                                                            #
 ##############################################################################################
-def process_get(ftp_control_connection:socket, welcoming_port, file_path, num_copied_files):
+def process_get(ftp_control_connection:socket, welcoming_port, file_path, num_copied_files)->int:
     #TODO: TEST SOCKET OPENING ERRORS - CONFLICTING PORTS
-    dataport = socket()
-    dataport.setsockopt(sock.SOL_SOCKET, sock.SO_REUSEADDR, 1) 
-    dataport.bind(("", welcoming_port))
-    dataport.listen(1)
+    try:
+        dataport = socket()
+        dataport.setsockopt(sock.SOL_SOCKET, sock.SO_REUSEADDR, 1) 
+        dataport.bind(("", welcoming_port))
+        dataport.listen(1)
+    except OSError as e:
+        writeOutput("GET failed, FTP-data port not allocated.\n",raw=False)
+        return 0
     
     commands = generate_get_output(welcoming_port,file_path)
 
@@ -217,24 +236,56 @@ def process_get(ftp_control_connection:socket, welcoming_port, file_path, num_co
         writeOutput(itertools.islice(comit,3));
     except FTPError:
         dataport.close()
-        return
+        return 0
 
-    conn,(hostaddr,hostport) = dataport.accept()
+    #ok so: there could be an issue server-side in which the server is unable to write data to the socket
+    #if this happens, the "accept" call will hang.
+    #However, we can see this coming. If we receive data from the control connection,
+    #we should read it using next(comit) and see if it has an error message.
+    #if so, we should abort the connection attempt.
 
+    response = ""
+    conn = None
+    while True:
+        try:
+            dataport.settimeout(5)
+            conn,(hostaddr,hostport) = dataport.accept()
+        except TimeoutError:
+            #check if control connection has data
+            read,_,_ = select([ftp_control_connection],[],[],0)
+            if len(read) != 0: #data on the control connection
+                response = next(comit)
+                if "ERROR" in response:
+                    conn = None
+                    break
+            else:
+                continue
+        break
+
+    numcop = 0
+
+    if conn is not None:
+        dest = Path("retr_files")/f"file{num_copied_files}"
+        dest.parent.mkdir(parents=True,exist_ok=True)
+        with open(dest,"wb") as f:
+            while True:
+                
+                data = conn.recv(1024)
+                if len(data) == 0: #connection closed, file done
+                    break
+                f.write(data)
     
-    dest = Path("retr_files")/f"file{num_copied_files}"
-    dest.parent.mkdir(parents=True,exist_ok=True)
-    with open(dest,"wb") as f:
-        while True:
-            data = conn.recv(1024)
-            if len(data) == 0: #connection closed, file done
-                break
-            f.write(data)
-    
-    conn.close()
+        conn.close()
+        numcop = 1
+
     dataport.close()
 
-    writeOutput(comit)        
+    if not response:
+        response = next(comit)
+
+    writeOutput(response)
+
+    return numcop
 
 
 ##############################################################################################
@@ -264,6 +315,7 @@ def generate_connect_output():
 
 def generate_get_output(port_num, file_path):
     my_ip = gethostbyname(gethostname())
+    # my_ip = "100.108.232.98" #tailscale connection, buster's IP for laptop
 
     FTP_ip = my_ip.replace(".",",")
     FTP_port = ",".join([str(int(hex(port_num)[2:4],base=16)), str(int(hex(port_num)[4:6],base=16))])
