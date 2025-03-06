@@ -441,12 +441,15 @@ def start_FTP_server():
                     nextline,commands = commands[:idx],commands[idx+1:]
                     break;
 
-                logging.info("command received")
+                logging.info("command received:\n" + nextline) 
+                sys.stdout.buffer.write((nextline + "\n").encode('utf-8'))
+                sys.stdout.flush()
                 reply = parseCommand(nextline,include_command=False);
                 conn.send(reply.encode('utf-8'))
+                logging.info(f"Reply sent ({len(reply)} character(s)):\n" + reply)
                 sys.stdout.buffer.write(reply.encode('utf-8'))
                 sys.stdout.flush()
-                logging.info(f"Reply sent ({len(reply)} character(s)):\n" + reply)
+                
             except FTPError as f:
                 logging.error("FTP Error: " + f.reply())
                 conn.send(f.reply().encode('utf-8'))

@@ -43,14 +43,3 @@ INFO:root:newlines in buffer: 1
 INFO:root:parsing FTP reply:
 200 Type set to I.
 
-INFO:root:Awaiting reply, curent buffer:
-
-INFO:root:Awaiting reply, curent buffer:
-22 Goodbye.
-
-INFO:root:newlines in buffer: 1
-INFO:root:parsing FTP reply:
-22 Goodbye.
-
-INFO:root:Awaiting reply, curent buffer:
-
