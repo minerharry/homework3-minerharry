@@ -63,7 +63,7 @@ def read_commands():
                             #make connection with server
                             ftp_control_connection = socket(sock.AF_INET,sock.SOCK_STREAM)
                             ftp_control_connection.connect((host,port))
-                        except (ConnectionRefusedError,ConnectionAbortedError):
+                        except (ConnectionRefusedError,ConnectionAbortedError, gaierror, OSError):
                             writeOutput("CONNECT failed\n",raw=False);
                             continue
                         
@@ -269,7 +269,7 @@ def process_get(ftp_control_connection:socket, welcoming_port, file_path, num_co
         dest.parent.mkdir(parents=True,exist_ok=True)
         with open(dest,"wb") as f:
             while True:
-                
+
                 data = conn.recv(1024)
                 if len(data) == 0: #connection closed, file done
                     break

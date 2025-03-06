@@ -348,3 +348,6 @@ INFO:root:Reply sent (61 character(s)):
 250 Requested file action completed.
 
 INFO:root:awaiting next command
+INFO:root:Port closed! Resetting server...
+INFO:root:client disconnected
+INFO:root:awaiting connection
