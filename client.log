@@ -1,0 +1,56 @@
+INFO:root:Awaiting reply, curent buffer:
+
+INFO:root:Awaiting reply, curent buffer:
+220 COMP 431 FTP server ready.
+
+INFO:root:newlines in buffer: 1
+INFO:root:parsing FTP reply:
+220 COMP 431 FTP server ready.
+
+INFO:root:Awaiting reply, curent buffer:
+
+INFO:root:Awaiting reply, curent buffer:
+331 Guest access OK, send password.
+
+INFO:root:newlines in buffer: 1
+INFO:root:parsing FTP reply:
+331 Guest access OK, send password.
+
+INFO:root:Awaiting reply, curent buffer:
+
+INFO:root:Awaiting reply, curent buffer:
+230 Guest login OK.
+
+INFO:root:newlines in buffer: 1
+INFO:root:parsing FTP reply:
+230 Guest login OK.
+
+INFO:root:Awaiting reply, curent buffer:
+
+INFO:root:Awaiting reply, curent buffer:
+215 UNIX Type: L8.
+
+INFO:root:newlines in buffer: 1
+INFO:root:parsing FTP reply:
+215 UNIX Type: L8.
+
+INFO:root:Awaiting reply, curent buffer:
+
+INFO:root:Awaiting reply, curent buffer:
+200 Type set to I.
+
+INFO:root:newlines in buffer: 1
+INFO:root:parsing FTP reply:
+200 Type set to I.
+
+INFO:root:Awaiting reply, curent buffer:
+
+INFO:root:Awaiting reply, curent buffer:
+22 Goodbye.
+
+INFO:root:newlines in buffer: 1
+INFO:root:parsing FTP reply:
+22 Goodbye.
+
+INFO:root:Awaiting reply, curent buffer:
+

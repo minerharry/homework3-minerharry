@@ -57,6 +57,7 @@ def read_commands():
                             continue
 
                         if ftp_control_connection is not None:
+                            writeOutput(send_commands(ftp_control_connection,["QUIT\r\n"]))
                             ftp_control_connection.close()
 
                         try:
