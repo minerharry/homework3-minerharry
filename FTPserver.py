@@ -319,6 +319,7 @@ def perform_retr(command):
                 #TODO: socket error handling
                 datasock = socket.socket(socket.AF_INET,socket.SOCK_STREAM);
                 datasock.connect((SERVER_STATE.CLIENT_ADDR,SERVER_STATE.CLIENT_PORT))
+                logging.info(datasock)
                 with open(command,"rb") as f:
                     datasock.sendfile(f);
                 datasock.close()
