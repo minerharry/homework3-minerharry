@@ -323,7 +323,9 @@ def perform_retr(command):
                     datasock.sendfile(f);
                 datasock.close()
                 return
-            except OSError:
+            except OSError as e:
+                import traceback as tb
+                logging.error("\n".join(tb.format_exception(e)))
                 raise FTPError.file_ok_bad_transfer
 
         else:
