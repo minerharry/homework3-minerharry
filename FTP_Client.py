@@ -64,13 +64,15 @@ def read_commands():
                             #make connection with server
                             ftp_control_connection = socket(sock.AF_INET,sock.SOCK_STREAM)
                             ftp_control_connection.connect((host,port))
-                        except (ConnectionRefusedError,ConnectionAbortedError, gaierror, OSError):
+                        except (ConnectionError, gaierror, OSError):
+                            ftp_control_connection = None #clear bad connection
                             writeOutput("CONNECT failed\n",raw=False);
                             continue
                         
                         writeOutput(send_commands(ftp_control_connection,[None])) #get server response! kind of a hack oh well
 
                         process_connect(ftp_control_connection);
+                        welcoming_port = int(sys.argv[1]);
                         
                         expected_commands = ["CONNECT","GET","QUIT"]
                     case 'GET':

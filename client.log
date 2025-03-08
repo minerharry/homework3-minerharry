@@ -43,3 +43,64 @@ INFO:root:newlines in buffer: 1
 INFO:root:parsing FTP reply:
 200 Type set to I.
 
+INFO:root:Awaiting reply, curent buffer:
+
+INFO:root:Awaiting reply, curent buffer:
+200 Port command successful (152.23.121.9,9001).
+
+INFO:root:newlines in buffer: 1
+INFO:root:parsing FTP reply:
+200 Port command successful (152.23.121.9,9001).
+
+INFO:root:Awaiting reply, curent buffer:
+
+INFO:root:Awaiting reply, curent buffer:
+150 File status okay.
+250 Requested file action completed.
+
+INFO:root:newlines in buffer: 2
+INFO:root:parsing FTP reply:
+150 File status okay.
+
+INFO:root:Awaiting reply, curent buffer:
+250 Requested file action completed.
+
+INFO:root:newlines in buffer: 1
+INFO:root:parsing FTP reply:
+250 Requested file action completed.
+
+INFO:root:Awaiting reply, curent buffer:
+
+INFO:root:Awaiting reply, curent buffer:
+200 Port command successful (152.23.121.9,9002).
+
+INFO:root:newlines in buffer: 1
+INFO:root:parsing FTP reply:
+200 Port command successful (152.23.121.9,9002).
+
+INFO:root:Awaiting reply, curent buffer:
+
+INFO:root:Awaiting reply, curent buffer:
+150 File status okay.
+250 Requested file action completed.
+
+INFO:root:newlines in buffer: 2
+INFO:root:parsing FTP reply:
+150 File status okay.
+
+INFO:root:Awaiting reply, curent buffer:
+250 Requested file action completed.
+
+INFO:root:newlines in buffer: 1
+INFO:root:parsing FTP reply:
+250 Requested file action completed.
+
+INFO:root:Awaiting reply, curent buffer:
+
+INFO:root:Awaiting reply, curent buffer:
+221 Goodbye.
+
+INFO:root:newlines in buffer: 1
+INFO:root:parsing FTP reply:
+221 Goodbye.
+

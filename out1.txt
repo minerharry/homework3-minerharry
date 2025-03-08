@@ -1,0 +1,21 @@
+220 COMP 431 FTP server ready.
+USER anonymous
+331 Guest access OK, send password.
+PASS guest@
+230 Guest login OK.
+SYST
+215 UNIX Type: L8.
+TYPE I
+200 Type set to I.
+PORT 152,23,121,9,35,41
+200 Port command successful (152.23.121.9,9001).
+RETR .gitignore
+150 File status okay.
+250 Requested file action completed.
+PORT 152,23,121,9,35,42
+200 Port command successful (152.23.121.9,9002).
+RETR README.md
+150 File status okay.
+250 Requested file action completed.
+QUIT
+221 Goodbye.
